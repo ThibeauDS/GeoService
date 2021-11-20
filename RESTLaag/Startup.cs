@@ -1,3 +1,6 @@
+using DataLaag.ADO;
+using DomeinLaag.Interfaces;
+using DomeinLaag.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
@@ -15,9 +18,16 @@ namespace RESTLaag
 {
     public class Startup
     {
+        #region Properties
+        private readonly string _connectionString;
+        internal static string url;
+        #endregion
+
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
+            _connectionString = Configuration.GetConnectionString("GeoServiceDB");
+            url = Configuration.GetSection("Url").Value;
         }
 
         public IConfiguration Configuration { get; }
@@ -27,6 +37,8 @@ namespace RESTLaag
         {
 
             services.AddControllers();
+            services.AddSingleton<IContinentRepository>(x => new ContinentRepositoryADO(_connectionString));
+            services.AddSingleton<ContinentService>();
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "RESTLaag", Version = "v1" });

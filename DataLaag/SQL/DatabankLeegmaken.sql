@@ -1,0 +1,9 @@
+﻿DELETE FROM [dbo].[Stad];
+DBCC CHECKIDENT ('Stad', RESEED, 0);
+GO
+DELETE FROM [dbo].[Land];
+DBCC CHECKIDENT ('Land', RESEED, 0);
+GO
+DELETE FROM [dbo].[Continent];
+DBCC CHECKIDENT ('Continent', RESEED, 0);
+GO

@@ -1,0 +1,12 @@
+C:\Users\thibe\Documents\GitHub\GeoService\DomeinLaag\bin\Debug\net5.0\DomeinLaag.deps.json
+C:\Users\thibe\Documents\GitHub\GeoService\DomeinLaag\bin\Debug\net5.0\DomeinLaag.dll
+C:\Users\thibe\Documents\GitHub\GeoService\DomeinLaag\bin\Debug\net5.0\ref\DomeinLaag.dll
+C:\Users\thibe\Documents\GitHub\GeoService\DomeinLaag\bin\Debug\net5.0\DomeinLaag.pdb
+C:\Users\thibe\Documents\GitHub\GeoService\DomeinLaag\obj\Debug\net5.0\DomeinLaag.csproj.AssemblyReference.cache
+C:\Users\thibe\Documents\GitHub\GeoService\DomeinLaag\obj\Debug\net5.0\DomeinLaag.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\thibe\Documents\GitHub\GeoService\DomeinLaag\obj\Debug\net5.0\DomeinLaag.AssemblyInfoInputs.cache
+C:\Users\thibe\Documents\GitHub\GeoService\DomeinLaag\obj\Debug\net5.0\DomeinLaag.AssemblyInfo.cs
+C:\Users\thibe\Documents\GitHub\GeoService\DomeinLaag\obj\Debug\net5.0\DomeinLaag.csproj.CoreCompileInputs.cache
+C:\Users\thibe\Documents\GitHub\GeoService\DomeinLaag\obj\Debug\net5.0\DomeinLaag.dll
+C:\Users\thibe\Documents\GitHub\GeoService\DomeinLaag\obj\Debug\net5.0\ref\DomeinLaag.dll
+C:\Users\thibe\Documents\GitHub\GeoService\DomeinLaag\obj\Debug\net5.0\DomeinLaag.pdb

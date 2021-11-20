@@ -1,0 +1,15 @@
+C:\Users\thibe\Documents\GitHub\GeoService\DataLaag\bin\Debug\net5.0\DataLaag.deps.json
+C:\Users\thibe\Documents\GitHub\GeoService\DataLaag\bin\Debug\net5.0\DataLaag.dll
+C:\Users\thibe\Documents\GitHub\GeoService\DataLaag\bin\Debug\net5.0\ref\DataLaag.dll
+C:\Users\thibe\Documents\GitHub\GeoService\DataLaag\bin\Debug\net5.0\DataLaag.pdb
+C:\Users\thibe\Documents\GitHub\GeoService\DataLaag\bin\Debug\net5.0\DomeinLaag.dll
+C:\Users\thibe\Documents\GitHub\GeoService\DataLaag\bin\Debug\net5.0\DomeinLaag.pdb
+C:\Users\thibe\Documents\GitHub\GeoService\DataLaag\obj\Debug\net5.0\DataLaag.csproj.AssemblyReference.cache
+C:\Users\thibe\Documents\GitHub\GeoService\DataLaag\obj\Debug\net5.0\DataLaag.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\thibe\Documents\GitHub\GeoService\DataLaag\obj\Debug\net5.0\DataLaag.AssemblyInfoInputs.cache
+C:\Users\thibe\Documents\GitHub\GeoService\DataLaag\obj\Debug\net5.0\DataLaag.AssemblyInfo.cs
+C:\Users\thibe\Documents\GitHub\GeoService\DataLaag\obj\Debug\net5.0\DataLaag.csproj.CoreCompileInputs.cache
+C:\Users\thibe\Documents\GitHub\GeoService\DataLaag\obj\Debug\net5.0\DataLaag.csproj.CopyComplete
+C:\Users\thibe\Documents\GitHub\GeoService\DataLaag\obj\Debug\net5.0\DataLaag.dll
+C:\Users\thibe\Documents\GitHub\GeoService\DataLaag\obj\Debug\net5.0\ref\DataLaag.dll
+C:\Users\thibe\Documents\GitHub\GeoService\DataLaag\obj\Debug\net5.0\DataLaag.pdb

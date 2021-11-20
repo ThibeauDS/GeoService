@@ -14,11 +14,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\thibe\\source\\repos\\GeoService\\DomeinLaag\\DomeinLaag.csproj",
+      "projectUniqueName": "C:\\Users\\thibe\\Documents\\GitHub\\GeoService\\DomeinLaag\\DomeinLaag.csproj",
       "projectName": "DomeinLaag",
-      "projectPath": "C:\\Users\\thibe\\source\\repos\\GeoService\\DomeinLaag\\DomeinLaag.csproj",
+      "projectPath": "C:\\Users\\thibe\\Documents\\GitHub\\GeoService\\DomeinLaag\\DomeinLaag.csproj",
       "packagesPath": "C:\\Users\\thibe\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\thibe\\source\\repos\\GeoService\\DomeinLaag\\obj\\",
+      "outputPath": "C:\\Users\\thibe\\Documents\\GitHub\\GeoService\\DomeinLaag\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
