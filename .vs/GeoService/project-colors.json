@@ -1,0 +1,21 @@
+{
+  "Version": 1,
+  "ProjectMap": {
+    "501f55f4-bcfc-485b-b972-8012322fccca": {
+      "ProjectGuid": "501f55f4-bcfc-485b-b972-8012322fccca",
+      "DisplayName": "RESTLaag",
+      "ColorIndex": 0
+    },
+    "08673a87-1aea-4a97-8423-f409979b202a": {
+      "ProjectGuid": "08673a87-1aea-4a97-8423-f409979b202a",
+      "DisplayName": "DomeinLaag",
+      "ColorIndex": 1
+    },
+    "641ac6f1-a313-4493-b79f-43655363f7d7": {
+      "ProjectGuid": "641ac6f1-a313-4493-b79f-43655363f7d7",
+      "DisplayName": "DataLaag",
+      "ColorIndex": 2
+    }
+  },
+  "NextColorIndex": 3
+}

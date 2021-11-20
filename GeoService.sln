@@ -1,0 +1,37 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31912.275
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RESTLaag", "RESTLaag\RESTLaag.csproj", "{501F55F4-BCFC-485B-B972-8012322FCCCA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DomeinLaag", "DomeinLaag\DomeinLaag.csproj", "{08673A87-1AEA-4A97-8423-F409979B202A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataLaag", "DataLaag\DataLaag.csproj", "{641AC6F1-A313-4493-B79F-43655363F7D7}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{501F55F4-BCFC-485B-B972-8012322FCCCA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{501F55F4-BCFC-485B-B972-8012322FCCCA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{501F55F4-BCFC-485B-B972-8012322FCCCA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{501F55F4-BCFC-485B-B972-8012322FCCCA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{08673A87-1AEA-4A97-8423-F409979B202A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{08673A87-1AEA-4A97-8423-F409979B202A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{08673A87-1AEA-4A97-8423-F409979B202A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{08673A87-1AEA-4A97-8423-F409979B202A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{641AC6F1-A313-4493-B79F-43655363F7D7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{641AC6F1-A313-4493-B79F-43655363F7D7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{641AC6F1-A313-4493-B79F-43655363F7D7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{641AC6F1-A313-4493-B79F-43655363F7D7}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {B5B8FAE7-7974-4239-9B58-1C80A4048750}
+	EndGlobalSection
+EndGlobal
