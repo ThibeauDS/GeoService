@@ -22,9 +22,24 @@ namespace RESTLaag.Controllers
         #region Properties
         private readonly string _url = Startup.url;
         private readonly ContinentService _continentService;
+        private readonly LandService _landService;
         #endregion
 
         #region Continent
+        [HttpGet("{continentId}")]
+        public ActionResult<ContinentRESToutputDTO> GetContinent(int continentId)
+        {
+            try
+            {
+                Continent continent = _continentService.ContinentWeergeven(continentId);
+                return Ok(MapVanDomein.MapVanContinentDomein(_url, continent, _landService));
+            }
+            catch (Exception ex)
+            {
+                return NotFound(ex);
+            }
+        }
+
         [HttpPost]
         public ActionResult<ContinentRESToutputDTO> PostContinent([FromBody] ContinentRESTinputDTO dto)
         {

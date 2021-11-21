@@ -16,8 +16,19 @@ namespace DomeinLaag.Klassen
         #endregion
 
         #region Constructors
-        public Continent(int id, string naam, int bevolkingsaantal)
+        public Continent(int id, string naam, int bevolkingsaantal) : this(naam, bevolkingsaantal)
         {
+            ZetId(id);
+        }
+
+        public Continent(string naam, int bevolkingsaantal) : this(naam)
+        {
+            ZetBevolkingsaantal(bevolkingsaantal);
+        }
+
+        public Continent(string naam)
+        {
+            ZetNaam(naam);
         }
         #endregion
 
@@ -31,13 +42,13 @@ namespace DomeinLaag.Klassen
             Id = id;
         }
 
-        public void ZetNaam()
+        public void ZetNaam(string naam)
         {
             if (string.IsNullOrWhiteSpace(Naam))
             {
                 throw new ContinentException("Naam mag niet leeg zijn");
             }
-            Naam = Naam;
+            Naam = naam;
         }
 
         public void ZetBevolkingsaantal(int bevolkingsaantal)

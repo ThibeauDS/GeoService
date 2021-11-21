@@ -1,4 +1,5 @@
-﻿using DomeinLaag.Interfaces;
+﻿using DomeinLaag.Exceptions;
+using DomeinLaag.Interfaces;
 using DomeinLaag.Klassen;
 using System;
 using System.Collections.Generic;
@@ -19,20 +20,52 @@ namespace DomeinLaag.Services
         {
             _repository = repository;
         }
+        #endregion
 
+        #region Methods
         public bool BestaatContinent(string naam)
         {
-            throw new NotImplementedException();
+            try
+            {
+                return _repository.BestaatContinent(naam);
+            }
+            catch (Exception ex)
+            {
+                throw new ContinentServiceException("BestaatContinent - error", ex);
+            }
         }
 
         public Continent ContinentToevoegen(Continent continent)
         {
-            throw new NotImplementedException();
+            try
+            {
+                if (BestaatContinent(continent.Naam))
+                {
+                    throw new ContinentServiceException("Continent bestaat al met deze naam.");
+                }
+                return _repository.ContinentToevoegen(continent);
+            }
+            catch (Exception ex)
+            {
+                throw new ContinentServiceException("ContinentToevoegen - error", ex);
+            }
         }
-        #endregion
 
-        #region Methods
-
+        public Continent ContinentWeergeven(int continentId)
+        {
+            try
+            {
+                if (_repository.BestaatContinent(continentId))
+                {
+                    throw new ContinentServiceException("Continent bestaat al met deze id.");
+                }
+                return _repository.ContinentWeergeven(continentId);
+            }
+            catch (Exception ex)
+            {
+                throw new ContinentServiceException("ContinentWeergeven - error", ex);
+            }
+        }
         #endregion
     }
 }
