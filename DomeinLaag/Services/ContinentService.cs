@@ -35,6 +35,18 @@ namespace DomeinLaag.Services
             }
         }
 
+        public bool BestaatContinent(int id)
+        {
+            try
+            {
+                return _repository.BestaatContinent(id);
+            }
+            catch (Exception ex)
+            {
+                throw new ContinentServiceException("BestaatContinent - error", ex);
+            }
+        }
+
         public Continent ContinentToevoegen(Continent continent)
         {
             try
@@ -55,16 +67,47 @@ namespace DomeinLaag.Services
         {
             try
             {
-                if (_repository.BestaatContinent(continentId))
-                {
-                    throw new ContinentServiceException("Continent bestaat al met deze id.");
-                }
                 return _repository.ContinentWeergeven(continentId);
             }
             catch (Exception ex)
             {
                 throw new ContinentServiceException("ContinentWeergeven - error", ex);
             }
+        }
+
+        public void ContinentVerwijderen(int continentId)
+        {
+            try
+            {
+                if (!_repository.BestaatContinent(continentId))
+                {
+                    throw new ContinentServiceException("Continent bestaat niet met deze id.");
+                }
+                _repository.ContinentVerwijderen(continentId);
+            }
+            catch (Exception ex)
+            {
+                throw new ContinentServiceException("ContinentVerwijderen - error", ex);
+            }
+        }
+
+        public Continent ContinentUpdaten(Continent continent)
+        {
+            if (continent == null)
+            {
+                throw new ContinentServiceException("Continent is null.");
+            }
+            if (!_repository.BestaatContinent(continent.Id))
+            {
+                throw new ContinentServiceException("Klant bestaat niet.");
+            }
+            Continent continentDb = ContinentWeergeven(continent.Id);
+            if (continentDb == continent)
+            {
+                throw new ContinentServiceException("Er zijn geen verschillen met het origineel.");
+            }
+            _repository.ContinentUpdaten(continent);
+            return continent;
         }
         #endregion
     }

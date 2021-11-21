@@ -44,7 +44,7 @@ namespace DomeinLaag.Klassen
 
         public void ZetNaam(string naam)
         {
-            if (string.IsNullOrWhiteSpace(Naam))
+            if (!string.IsNullOrWhiteSpace(Naam))
             {
                 throw new ContinentException("Naam mag niet leeg zijn");
             }
@@ -58,6 +58,32 @@ namespace DomeinLaag.Klassen
                 throw new ContinentException("Bevolkingsaantal kan niet kleiner zijn dan 0.");
             }
             Bevolkingsaantal = bevolkingsaantal;
+        }
+
+        public override bool Equals(object obj)
+        {
+            return obj is Continent continent &&
+                   Naam == continent.Naam &&
+                   Bevolkingsaantal == continent.Bevolkingsaantal;
+        }
+
+        public override int GetHashCode()
+        {
+            return HashCode.Combine(Naam, Bevolkingsaantal);
+        }
+
+        public static bool operator ==(Continent continent, Continent continent1)
+        {
+            if ((object)continent == null)
+            {
+                return (object)continent1 == null;
+            }
+            return continent.Equals(continent1);
+        }
+
+        public static bool operator !=(Continent continent, Continent continent1)
+        {
+            return !(continent == continent1);
         }
         #endregion
     }

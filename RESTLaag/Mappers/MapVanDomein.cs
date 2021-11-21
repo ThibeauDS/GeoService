@@ -9,10 +9,12 @@ namespace RESTLaag.Mappers
 {
     public class MapVanDomein
     {
-        internal static ContinentRESToutputDTO MapVanContinentDomein(string url, Continent continent, LandService landService)
+        public static ContinentRESToutputDTO MapVanContinentDomein(string url, Continent continent, LandService landService)
         {
             string continentURL = $"{url}/Continent/{continent.Id}";
             List<string> landen = landService.GeefLandenContinent(continent.Id).Select(x => continentURL + $"/Land/{x.Id}").ToList();
+            ContinentRESToutputDTO dto = new(continentURL, continent.Naam, continent.Bevolkingsaantal, landen);
+            return dto;
         }
     }
 }

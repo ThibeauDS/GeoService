@@ -38,7 +38,9 @@ namespace RESTLaag
 
             services.AddControllers();
             services.AddSingleton<IContinentRepository>(x => new ContinentRepositoryADO(_connectionString));
+            services.AddSingleton<ILandRepository>(x => new LandRepositoryADO(_connectionString));
             services.AddSingleton<ContinentService>();
+            services.AddSingleton<LandService>();
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "RESTLaag", Version = "v1" });

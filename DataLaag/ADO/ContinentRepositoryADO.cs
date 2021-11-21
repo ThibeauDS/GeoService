@@ -41,7 +41,7 @@ namespace DataLaag.ADO
                 connection.Open();
                 command.Parameters.AddWithValue("@Naam", continent.Naam);
                 command.Parameters.AddWithValue("@Bevolkingsaantal", continent.Bevolkingsaantal);
-                int id = (int)command.ExecuteScalar();
+                int id = Decimal.ToInt32((decimal)command.ExecuteScalar());
                 continent.ZetId(id);
                 return continent;
             }
@@ -128,6 +128,49 @@ namespace DataLaag.ADO
             catch (Exception ex)
             {
                 throw new ContinentRepositoryADOException("ContinentWeergevenADO - error", ex);
+            }
+            finally
+            {
+                connection.Close();
+            }
+        }
+
+        public void ContinentVerwijderen(int continentId)
+        {
+            string sql = "DELETE FROM [dbo].[Continent] WHERE Id = @Id";
+            SqlConnection connection = GetConnection();
+            using SqlCommand command = new(sql, connection);
+            try
+            {
+                connection.Open();
+                command.Parameters.AddWithValue("@Id", continentId);
+                command.ExecuteNonQuery();
+            }
+            catch (Exception ex)
+            {
+                throw new ContinentRepositoryADOException("ContinentVerwijderenADO - error", ex);
+            }
+            finally
+            {
+                connection.Close();
+            }
+        }
+
+        public void ContinentUpdaten(Continent continent)
+        {
+            string sql = "UPDATE [dbo].[Continent] SET Naam = @Naam WHERE Id = @Id";
+            SqlConnection connection = GetConnection();
+            using SqlCommand command = new(sql, connection);
+            try
+            {
+                connection.Open();
+                command.Parameters.AddWithValue("@Id", continent.Id);
+                command.Parameters.AddWithValue("@Naam", continent.Naam);
+                command.ExecuteNonQuery();
+            }
+            catch (Exception ex)
+            {
+                throw new ContinentRepositoryADOException("ContinentUpdatenADO - error", ex);
             }
             finally
             {

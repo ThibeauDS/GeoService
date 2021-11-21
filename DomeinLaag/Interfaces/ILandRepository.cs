@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DomeinLaag.Klassen;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,6 +9,7 @@ namespace DomeinLaag.Interfaces
 {
     public interface ILandRepository
     {
-        List<string> GeefLandenContinent(int id);
+        List<Land> GeefLandenContinent(int id);
+        bool HeeftLanden(int continentId);
     }
 }
