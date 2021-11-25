@@ -16,5 +16,10 @@ namespace RESTLaag.Mappers
             ContinentRESToutputDTO dto = new(continentURL, continent.Naam, continent.Bevolkingsaantal, landen);
             return dto;
         }
+
+        internal static LandRESToutputDTO MapVanLandDomein(string url, Land land, StadService stadService)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

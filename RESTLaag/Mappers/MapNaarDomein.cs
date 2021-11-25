@@ -19,5 +19,10 @@ namespace RESTLaag.Mappers
                 throw new MapNaarDomeinException("MapNaarContinentDomein - error", ex);
             }
         }
+
+        internal static Land MapNaarLandDomein(LandRESTinputDTO dto)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
