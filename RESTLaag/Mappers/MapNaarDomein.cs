@@ -1,4 +1,5 @@
 ﻿using DomeinLaag.Klassen;
+using DomeinLaag.Services;
 using RESTLaag.Exceptions;
 using RESTLaag.Model.Input;
 using System;
@@ -20,9 +21,18 @@ namespace RESTLaag.Mappers
             }
         }
 
-        internal static Land MapNaarLandDomein(LandRESTinputDTO dto)
+        public static Land MapNaarLandDomein(LandRESTinputDTO dto, ContinentService continentService)
         {
-            throw new NotImplementedException();
+            try
+            {
+                Continent continent = continentService.ContinentWeergeven(dto.ContinentId);
+                Land land = new(dto.Naam, dto.Bevolkingsaantal, dto.Oppervlakte, continent);
+                return land;
+            }
+            catch (Exception ex)
+            {
+                throw new MapNaarDomeinException("MapNaarLandDomein - error", ex);
+            }
         }
     }
 }

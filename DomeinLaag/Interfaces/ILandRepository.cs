@@ -11,5 +11,8 @@ namespace DomeinLaag.Interfaces
     {
         List<Land> GeefLandenContinent(int id);
         bool HeeftLanden(int continentId);
+        Land LandToevoegen(Land land);
+        bool BestaatLand(int landId);
+        Land LandWeergeven(int landId);
     }
 }

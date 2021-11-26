@@ -1,4 +1,6 @@
-﻿using DomeinLaag.Interfaces;
+﻿using DomeinLaag.Exceptions;
+using DomeinLaag.Interfaces;
+using DomeinLaag.Klassen;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,6 +23,17 @@ namespace DomeinLaag.Services
         #endregion
 
         #region Methods
+        public List<Stad> GeefStedenLand(int id)
+        {
+            try
+            {
+                return _repository.GeefStedenLand(id);
+            }
+            catch (Exception ex)
+            {
+                throw new StadServiceException("GeefLandenContinent - error", ex);
+            }
+        }
         #endregion
     }
 }

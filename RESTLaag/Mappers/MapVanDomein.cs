@@ -13,13 +13,17 @@ namespace RESTLaag.Mappers
         {
             string continentURL = $"{url}/Continent/{continent.Id}";
             List<string> landen = landService.GeefLandenContinent(continent.Id).Select(x => continentURL + $"/Land/{x.Id}").ToList();
-            ContinentRESToutputDTO dto = new(continentURL, continent.Naam, continent.Bevolkingsaantal, landen);
+            ContinentRESToutputDTO dto = new(continentURL, continent.Naam, continent.Bevolkingsaantal, landen.Count, landen);
             return dto;
         }
 
         internal static LandRESToutputDTO MapVanLandDomein(string url, Land land, StadService stadService)
         {
-            throw new NotImplementedException();
+            string continentURL = $"{url}/Continent/{land.Continent.Id}";
+            string landURL = $"{continentURL}/Land/{land.Id}";
+            List<string> steden = stadService.GeefStedenLand(land.Id).Select(x => landURL + $"/Stad/{x.Id}").ToList();
+            LandRESToutputDTO dto = new(landURL, land.Naam, land.Bevolkingsaantal, continentURL, steden.Count, steden);
+            return dto;
         }
     }
 }

@@ -6,17 +6,19 @@ namespace RESTLaag.Model.Output
     {
         #region Properties
         public string Id { get; set; }
-        public string Name { get; set; }
+        public string Naam { get; set; }
         public int Bevolkingsaantal { get; set; }
+        public int AantalLanden { get; set; }
         public List<string> Landen { get; set; }
         #endregion
 
         #region Constructors
-        public ContinentRESToutputDTO(string id, string name, int bevolkingsaantal, List<string> landen)
+        public ContinentRESToutputDTO(string id, string naam, int bevolkingsaantal, int aantalLanden, List<string> landen)
         {
             Id = id;
-            Name = name;
+            Naam = naam;
             Bevolkingsaantal = bevolkingsaantal;
+            AantalLanden = aantalLanden;
             Landen = landen;
         } 
         #endregion

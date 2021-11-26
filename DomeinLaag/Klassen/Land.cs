@@ -44,9 +44,9 @@ namespace DomeinLaag.Klassen
 
         public void ZetNaam(string naam)
         {
-            if (string.IsNullOrWhiteSpace(Naam))
+            if (string.IsNullOrWhiteSpace(naam))
             {
-                throw new LandException("Naam mag niet leeg zijn");
+                throw new LandException("Naam mag niet leeg zijn.");
             }
             Naam = naam;
         }
@@ -71,6 +71,10 @@ namespace DomeinLaag.Klassen
 
         public void ZetContinent(Continent continent)
         {
+            if (continent == null)
+            {
+                throw new LandException("Object continent kan niet null zijn.");
+            }
             Continent = continent;
         }
         #endregion

@@ -67,6 +67,10 @@ namespace DomeinLaag.Services
         {
             try
             {
+                if (!_repository.BestaatContinent(continentId))
+                {
+                    throw new ContinentServiceException("Continent bestaat niet met deze id.");
+                }
                 return _repository.ContinentWeergeven(continentId);
             }
             catch (Exception ex)

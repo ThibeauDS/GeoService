@@ -1,6 +1,9 @@
-﻿using DomeinLaag.Interfaces;
+﻿using DataLaag.Exceptions;
+using DomeinLaag.Interfaces;
+using DomeinLaag.Klassen;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
@@ -26,6 +29,46 @@ namespace DataLaag.ADO
         {
             SqlConnection connection = new(_connectionString);
             return connection;
+        }
+
+        public List<Stad> GeefStedenLand(int id)
+        {
+            string sql = "SELECT c.Id AS ContinentId, c.Naam AS ContinentNaam, c.Bevolkingsaantal AS ContinentBevolkingsaantal, l.Id AS LandId, l.Naam AS LandNaam, l.Bevolkingsaantal AS LandBevolkingsaantal, l.Oppervlakte, l.ContinentId, s.* FROM [dbo].[Stad] s " +
+                "INNER JOIN [dbo].[Land] l ON s.LandId = l.Id " +
+                "INNER JOIN [dbo].[Continent] c ON l.ContinentId = c.Id WHERE s.Id = @Id;";
+            SqlConnection connection = GetConnection();
+            using SqlCommand command = new(sql, connection);
+            try
+            {
+                connection.Open();
+                Continent continent = null;
+                Land land = null;
+                List<Stad> steden = new();
+                command.Parameters.AddWithValue("@Id", id);
+                IDataReader reader = command.ExecuteReader();
+                while (reader.Read())
+                {
+                    if (continent == null)
+                    {
+                        continent = new((int)reader["ContinentId"], (string)reader["ContinentNaam"], (int)reader["Bevolkingsaantal"]);
+                    }
+                    if (land == null)
+                    {
+                        land = new((int)reader["LandId"], (string)reader["LandNaam"], (int)reader["LandBevolkingsaantal"], (decimal)reader["Oppervlakte"], continent);
+                    }
+                    Stad stad = new((int)reader["Id"], (string)reader["Naam"], (int)reader["Bevolkingsaantal"], (bool)reader["IsHoofdstad"], land);
+                    steden.Add(stad);
+                }
+                return steden;
+            }
+            catch (Exception ex)
+            {
+                throw new StadRepositoryADOException("GeefStedenLandADO - error", ex);
+            }
+            finally
+            {
+                connection.Close();
+            }
         }
         #endregion
     }

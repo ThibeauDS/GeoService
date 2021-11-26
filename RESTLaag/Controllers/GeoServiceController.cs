@@ -65,7 +65,7 @@ namespace RESTLaag.Controllers
         }
 
         [HttpDelete("{continentId}")]
-        public ActionResult<ContinentRESToutputDTO> DeleteContinent(int continentId)
+        public IActionResult DeleteContinent(int continentId)
         {
             try
             {
@@ -104,14 +104,33 @@ namespace RESTLaag.Controllers
         #endregion
 
         #region Land
-        [HttpPost]
-        [Route("{continentId}/Land{landId}")]
-        public ActionResult<LandRESToutputDTO> PostLand([FromBody] LandRESTinputDTO dto)
+        [HttpGet]
+        [Route("{continentId}/Land/{landId}")]
+        public ActionResult<LandRESToutputDTO> GetLand(int landId)
         {
             try
             {
-                Land land = _landService.LandToevoegen(MapNaarDomein.MapNaarLandDomein(dto));
-                return CreatedAtAction(nameof(GetLand), new { landId = land.Id }, MapVanDomein.MapVanLandDomein(_url, land, _stadService));
+                Land land = _landService.LandWeergeven(landId);
+                return Ok(MapVanDomein.MapVanLandDomein(_url, land, _stadService));
+            }
+            catch (Exception ex)
+            {
+                return NotFound(ex);
+            }
+        }
+
+        [HttpPost]
+        [Route("{continentId}/Land")]
+        public ActionResult<LandRESToutputDTO> PostLand(int continentId, [FromBody] LandRESTinputDTO dto)
+        {
+            try
+            {
+                if (continentId != dto.ContinentId)
+                {
+                    return BadRequest("ContinentId klopt niet.");
+                }
+                Land land = _landService.LandToevoegen(MapNaarDomein.MapNaarLandDomein(dto, _continentService));
+                return CreatedAtAction(nameof(GetLand), new { continentId = continentId, landId = land.Id }, MapVanDomein.MapVanLandDomein(_url, land, _stadService));
             }
             catch (Exception ex)
             {

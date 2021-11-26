@@ -33,8 +33,8 @@ namespace DataLaag.ADO
 
         public List<Land> GeefLandenContinent(int id)
         {
-            string sql = "SELECT c.Id AS ContinentId, c.Naam AS ContinentNaam, c.Bevolkingsaantal, l.* FROM [dbo].[Land] l " +
-                "INNER JOIN [dbo].[Continent] c ON c.Id = @ContinentId WHERE ContinentId = @ContinentId";
+            string sql = "SELECT c.Id AS ContinentId, c.Naam AS ContinentNaam, c.Bevolkingsaantal AS ContinentBevolkingsaantal, l.* FROM [dbo].[Land] l " +
+                "INNER JOIN [dbo].[Continent] c ON l.ContinentId = c.Id WHERE ContinentId = @ContinentId";
             SqlConnection connection = GetConnection();
             using SqlCommand command = new(sql, connection);
             try
@@ -48,7 +48,7 @@ namespace DataLaag.ADO
                 {
                     if (continent == null)
                     {
-                        continent = new((int)reader["ContinentId"], (string)reader["ContinentNaam"], (int)reader["Bevolkingsaantal"]);
+                        continent = new((int)reader["ContinentId"], (string)reader["ContinentNaam"], (int)reader["ContinentBevolkingsaantal"]);
                     }
                     Land land = new((int)reader["Id"], (string)reader["Naam"], (int)reader["Bevolkingsaantal"], (decimal)reader["Oppervlakte"], continent);
                     landen.Add(land);
@@ -84,6 +84,88 @@ namespace DataLaag.ADO
             catch (Exception ex)
             {
                 throw new LandRepositoryADOException("HeeftLandenADO - error", ex);
+            }
+            finally
+            {
+                connection.Close();
+            }
+        }
+
+        public Land LandToevoegen(Land land)
+        {
+            string sql = "INSERT INTO [dbo].[Land] (Naam, Bevolkingsaantal, Oppervlakte, ContinentId) VALUES (@Naam, @Bevolkingsaantal, @Oppervlakte, @ContinentId) SELECT SCOPE_IDENTITY()";
+            SqlConnection connection = GetConnection();
+            using SqlCommand command = new(sql, connection);
+            try
+            {
+                connection.Open();
+                command.Parameters.AddWithValue("@Naam", land.Naam);
+                command.Parameters.AddWithValue("@Bevolkingsaantal", land.Bevolkingsaantal);
+                command.Parameters.AddWithValue("@Oppervlakte", land.Oppervlakte);
+                command.Parameters.AddWithValue("@ContinentId", land.Continent.Id);
+                int id = Decimal.ToInt32((decimal)command.ExecuteScalar());
+                land.ZetId(id);
+                return land;
+            }
+            catch (Exception ex)
+            {
+                throw new LandRepositoryADOException("LandToevoegenADO - error", ex);
+            }
+            finally
+            {
+                connection.Close();
+            }
+        }
+
+        public bool BestaatLand(int landId)
+        {
+            string sql = "SELECT COUNT(*) FROM [dbo].[Land] WHERE Id = @Id";
+            SqlConnection connection = GetConnection();
+            using SqlCommand command = new(sql, connection);
+            try
+            {
+                connection.Open();
+                command.Parameters.AddWithValue("@Id", landId);
+                int n = (int)command.ExecuteScalar();
+                if (n > 0)
+                {
+                    return true;
+                }
+                return false;
+            }
+            catch (Exception ex)
+            {
+                throw new LandRepositoryADOException("BestaatLandADO - error", ex);
+            }
+            finally
+            {
+                connection.Close();
+            }
+        }
+
+        public Land LandWeergeven(int landId)
+        {
+            string sql = "SELECT l.*, c.Id AS ContintId, c.Naam AS ContinentNaam, c.Bevolkingsaantal AS ContinentBevolkingsaantal FROM [dbo].[Land] l INNER JOIN [dbo].[Continent] c ON l.ContinentId = c.Id WHERE l.Id = @Id;";
+            SqlConnection connection = GetConnection();
+            using SqlCommand command = new(sql, connection);
+            try
+            {
+                connection.Open();
+                command.Parameters.AddWithValue("@Id", landId);
+                IDataReader reader = command.ExecuteReader();
+                Continent continent = null;
+                reader.Read();
+                if (continent == null)
+                {
+                    continent = new((int)reader["ContinentId"], (string)reader["ContinentNaam"], (int)reader["ContinentBevolkingsaantal"]);
+                }
+                Land land = new(landId, (string)reader["Naam"], (int)reader["Bevolkingsaantal"], (decimal)reader["Oppervlakte"], continent);
+                reader.Close();
+                return land;
+            }
+            catch (Exception ex)
+            {
+                throw new LandRepositoryADOException("LandWeergevenADO - error", ex);
             }
             finally
             {

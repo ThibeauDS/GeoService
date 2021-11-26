@@ -46,6 +46,34 @@ namespace DomeinLaag.Services
                 throw new LandServiceException("HeeftLanden - error", ex);
             }
         }
+
+        public Land LandToevoegen(Land land)
+        {
+            try
+            {
+                return _repository.LandToevoegen(land);
+            }
+            catch (Exception ex)
+            {
+                throw new LandServiceException("LandToevoegen - error", ex);
+            }
+        }
+
+        public Land LandWeergeven(int landId)
+        {
+            try
+            {
+                if (!_repository.BestaatLand(landId))
+                {
+                    throw new LandServiceException("Land bestaat niet.");
+                }
+                return _repository.LandWeergeven(landId);
+            }
+            catch (Exception ex)
+            {
+                throw new LandServiceException("LandWeergeven - error", ex);
+            }
+        }
         #endregion
     }
 }
