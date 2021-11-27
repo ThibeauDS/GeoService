@@ -137,6 +137,26 @@ namespace RESTLaag.Controllers
                 return BadRequest(ex);
             }
         }
+
+        [HttpDelete]
+        [Route("{continentId}/Land/{landId}")]
+        public IActionResult DeleteLand(int continentId, int landId)
+        {
+            try
+            {
+
+                if (_stadService.HeeftSteden(landId))
+                {
+                    return BadRequest();
+                }
+                _landService.LandVerwijderen(landId);
+                return NoContent();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex);
+            }
+        }
         #endregion
     }
 }

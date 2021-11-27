@@ -12,8 +12,14 @@ namespace RESTLaag.Mappers
         public static ContinentRESToutputDTO MapVanContinentDomein(string url, Continent continent, LandService landService)
         {
             string continentURL = $"{url}/Continent/{continent.Id}";
+            int bevolkingsaantal = 0;
+            List<Land> landenLijst = landService.GeefLandenContinent(continent.Id);
+            foreach(Land land in landenLijst)
+            {
+                bevolkingsaantal += land.Bevolkingsaantal;
+            }
             List<string> landen = landService.GeefLandenContinent(continent.Id).Select(x => continentURL + $"/Land/{x.Id}").ToList();
-            ContinentRESToutputDTO dto = new(continentURL, continent.Naam, continent.Bevolkingsaantal, landen.Count, landen);
+            ContinentRESToutputDTO dto = new(continentURL, continent.Naam, bevolkingsaantal, landen.Count, landen);
             return dto;
         }
 
