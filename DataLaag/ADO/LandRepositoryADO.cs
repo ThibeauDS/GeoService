@@ -219,6 +219,33 @@ namespace DataLaag.ADO
                 connection.Close();
             }
         }
+
+        public bool BestaatLand(string naam, int id)
+        {
+            string sql = "SELECT COUNT(*) FROM [dbo].[Land] WHERE Naam = @Naam = ContinentId = @ContinentId";
+            SqlConnection connection = GetConnection();
+            using SqlCommand command = new(sql, connection);
+            try
+            {
+                connection.Open();
+                command.Parameters.AddWithValue("@Naam", naam);
+                command.Parameters.AddWithValue("@ContinentId", id);
+                int n = (int)command.ExecuteScalar();
+                if (n > 0)
+                {
+                    return true;
+                }
+                return false;
+            }
+            catch (Exception ex)
+            {
+                throw new LandRepositoryADOException("BestaatLandADO - error", ex);
+            }
+            finally
+            {
+                connection.Close();
+            }
+        }
         #endregion
     }
 }

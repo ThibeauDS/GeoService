@@ -44,7 +44,7 @@ namespace DomeinLaag.Klassen
 
         public void ZetNaam(string naam)
         {
-            if (string.IsNullOrWhiteSpace(Naam))
+            if (string.IsNullOrWhiteSpace(naam))
             {
                 throw new StadException("Naam mag niet leeg zijn.");
             }

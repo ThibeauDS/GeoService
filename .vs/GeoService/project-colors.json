@@ -20,7 +20,12 @@
       "ProjectGuid": "a2fe74e1-b743-11d0-ae1a-00a0c90fffc3",
       "DisplayName": "Miscellaneous Files",
       "ColorIndex": -1
+    },
+    "fff068af-7fee-408a-992b-eb2af6225ae9": {
+      "ProjectGuid": "fff068af-7fee-408a-992b-eb2af6225ae9",
+      "DisplayName": "DomeinLaagTests",
+      "ColorIndex": 3
     }
   },
-  "NextColorIndex": 3
+  "NextColorIndex": 4
 }

@@ -51,6 +51,10 @@ namespace DomeinLaag.Services
         {
             try
             {
+                if (_repository.BestaatLand(land.Naam, land.Continent.Id))
+                {
+                    throw new LandServiceException("Land bestaat al.");
+                }
                 return _repository.LandToevoegen(land);
             }
             catch (Exception ex)
@@ -95,6 +99,10 @@ namespace DomeinLaag.Services
         {
             try
             {
+                if (_repository.BestaatLand(land.Naam, land.Continent.Id))
+                {
+                    throw new LandServiceException("Land bestaat al.");
+                }
                 if (!_repository.BestaatLand(land.Id))
                 {
                     throw new LandServiceException("Land bestaat niet.");

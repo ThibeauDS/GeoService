@@ -16,5 +16,6 @@ namespace DomeinLaag.Interfaces
         Land LandWeergeven(int landId);
         void LandVerwijderen(int landId);
         Land LandUpdaten(Land land);
+        bool BestaatLand(string naam, int id);
     }
 }

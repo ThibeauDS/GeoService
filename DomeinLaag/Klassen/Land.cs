@@ -77,6 +77,18 @@ namespace DomeinLaag.Klassen
             }
             Continent = continent;
         }
+
+        public override bool Equals(object obj)
+        {
+            return obj is Land land &&
+                   Naam == land.Naam &&
+                   EqualityComparer<Continent>.Default.Equals(Continent, land.Continent);
+        }
+
+        public override int GetHashCode()
+        {
+            return HashCode.Combine(Naam, Continent);
+        }
         #endregion
     }
 }
