@@ -144,13 +144,37 @@ namespace RESTLaag.Controllers
         {
             try
             {
-
+                if (_continentService.BestaatContinent(continentId))
+                {
+                    return BadRequest();
+                }
                 if (_stadService.HeeftSteden(landId))
                 {
                     return BadRequest();
                 }
                 _landService.LandVerwijderen(landId);
                 return NoContent();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex);
+            }
+        }
+
+        [HttpPut]
+        [Route("{continentId}/Land/{landId}")]
+        public ActionResult<ContinentRESToutputDTO> PutLand(int continentId, int landId, [FromBody] LandRESTinputDTO dto)
+        {
+            try
+            {
+                if (!_continentService.BestaatContinent(continentId) || !_landService.BestaatLand(landId) || dto == null || string.IsNullOrWhiteSpace(dto.Naam))
+                {
+                    return BadRequest();
+                }
+                Land land = MapNaarDomein.MapNaarLandDomein(dto, _continentService);
+                land.ZetId(landId);
+                Land landDb = _landService.LandUpdaten(land);
+                return CreatedAtAction(nameof(GetLand), new { continentId = continentId, landId = land.Id }, MapVanDomein.MapVanLandDomein(_url, land, _stadService));
             }
             catch (Exception ex)
             {

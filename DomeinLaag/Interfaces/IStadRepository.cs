@@ -10,5 +10,6 @@ namespace DomeinLaag.Interfaces
     public interface IStadRepository
     {
         List<Stad> GeefStedenLand(int id);
+        bool HeeftSteden(int landId);
     }
 }

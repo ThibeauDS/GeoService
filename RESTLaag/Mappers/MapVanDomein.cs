@@ -28,7 +28,7 @@ namespace RESTLaag.Mappers
             string continentURL = $"{url}/Continent/{land.Continent.Id}";
             string landURL = $"{continentURL}/Land/{land.Id}";
             List<string> steden = stadService.GeefStedenLand(land.Id).Select(x => landURL + $"/Stad/{x.Id}").ToList();
-            LandRESToutputDTO dto = new(landURL, land.Naam, land.Bevolkingsaantal, continentURL, steden.Count, steden);
+            LandRESToutputDTO dto = new(landURL, land.Naam, land.Bevolkingsaantal, land.Oppervlakte, continentURL, steden.Count, steden);
             return dto;
         }
     }

@@ -34,6 +34,18 @@ namespace DomeinLaag.Services
                 throw new StadServiceException("GeefLandenContinent - error", ex);
             }
         }
+
+        public bool HeeftSteden(int landId)
+        {
+            try
+            {
+                return _repository.HeeftSteden(landId);
+            }
+            catch (Exception ex)
+            {
+                throw new LandServiceException("HeeftSteden - error", ex);
+            }
+        }
         #endregion
     }
 }

@@ -172,6 +172,53 @@ namespace DataLaag.ADO
                 connection.Close();
             }
         }
+
+        public void LandVerwijderen(int landId)
+        {
+            string sql = "DELETE FROM [dbo].[Land] WHERE Id = @Id";
+            SqlConnection connection = GetConnection();
+            using SqlCommand command = new(sql, connection);
+            try
+            {
+                connection.Open();
+                command.Parameters.AddWithValue("@Id", landId);
+                command.ExecuteNonQuery();
+            }
+            catch (Exception ex)
+            {
+                throw new LandRepositoryADOException("LandVerwijderenADO - error", ex);
+            }
+            finally
+            {
+                connection.Close();
+            }
+        }
+
+        public Land LandUpdaten(Land land)
+        {
+            string sql = "UPDATE [dbo].[Land] SET Naam = @Naam, Oppervlakte = @Oppervlakte, ContinentId = @ContinentId, Bevolkingsaantal = @Bevolkingsaantal WHERE Id = @Id";
+            SqlConnection connection = GetConnection();
+            using SqlCommand command = new(sql, connection);
+            try
+            {
+                connection.Open();
+                command.Parameters.AddWithValue("@Id", land.Id);
+                command.Parameters.AddWithValue("@Naam", land.Naam);
+                command.Parameters.AddWithValue("@Oppervlakte", land.Oppervlakte);
+                command.Parameters.AddWithValue("@ContinentId", land.Continent.Id);
+                command.Parameters.AddWithValue("@Bevolkingsaantal", land.Bevolkingsaantal);
+                command.ExecuteNonQuery();
+                return land;
+            }
+            catch (Exception ex)
+            {
+                throw new LandRepositoryADOException("LandUpdatenADO - error", ex);
+            }
+            finally
+            {
+                connection.Close();
+            }
+        }
         #endregion
     }
 }

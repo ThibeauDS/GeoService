@@ -70,6 +70,32 @@ namespace DataLaag.ADO
                 connection.Close();
             }
         }
+
+        public bool HeeftSteden(int landId)
+        {
+            string sql = "SELECT COUNT(*) FROM [dbo].[Stad] WHERE LandId = @LandId";
+            SqlConnection connection = GetConnection();
+            using SqlCommand command = new(sql, connection);
+            try
+            {
+                connection.Open();
+                command.Parameters.AddWithValue("@LandId", landId);
+                int n = (int)command.ExecuteScalar();
+                if (n > 0)
+                {
+                    return true;
+                }
+                return false;
+            }
+            catch (Exception ex)
+            {
+                throw new StadRepositoryADOException("HeeftStedenADO - error", ex);
+            }
+            finally
+            {
+                connection.Close();
+            }
+        }
         #endregion
     }
 }
