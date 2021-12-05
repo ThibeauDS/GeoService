@@ -11,5 +11,9 @@ namespace DomeinLaag.Interfaces
     {
         List<Stad> GeefStedenLand(int id);
         bool HeeftSteden(int landId);
+        Stad StadToevoegen(Stad stad);
+        bool BestaatStad(int id);
+        Stad StadWeergeven(int stadId);
+        void StadVerwijderen(int stadId);
     }
 }

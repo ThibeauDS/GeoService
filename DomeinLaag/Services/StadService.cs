@@ -43,7 +43,67 @@ namespace DomeinLaag.Services
             }
             catch (Exception ex)
             {
-                throw new LandServiceException("HeeftSteden - error", ex);
+                throw new StadServiceException("HeeftSteden - error", ex);
+            }
+        }
+
+        public Stad StadToevoegen(Stad stad)
+        {
+            try
+            {
+                if (_repository.BestaatStad(stad.Id))
+                {
+                    throw new StadServiceException("Land bestaat al.");
+                }
+                return _repository.StadToevoegen(stad);
+            }
+            catch (Exception ex)
+            {
+                throw new StadServiceException("StadToevoegen - error", ex);
+            }
+        }
+
+        public Stad StadWeergeven(int stadId)
+        {
+            try
+            {
+                if (!_repository.BestaatStad(stadId))
+                {
+                    throw new StadServiceException("Land bestaat niet.");
+                }
+                return _repository.StadWeergeven(stadId);
+            }
+            catch (Exception ex)
+            {
+                throw new StadServiceException("StadWeergeven - error", ex);
+            }
+        }
+
+        public bool BestaatStad(int stadId)
+        {
+            try
+            {
+                return _repository.BestaatStad(stadId);
+            }
+            catch (Exception ex)
+            {
+                throw new StadServiceException("BestaatStad - error", ex);
+            }
+        }
+
+        public void StadVerwijderen(int stadId)
+        {
+            try
+            {
+                if (!_repository.BestaatStad(stadId))
+                {
+                    throw new StadServiceException("Land bestaat niet.");
+                }
+                _repository.StadVerwijderen(stadId);
+            }
+            catch (Exception ex)
+            {
+                throw new StadServiceException("StadWeergeven - error", ex);
             }
         }
         #endregion

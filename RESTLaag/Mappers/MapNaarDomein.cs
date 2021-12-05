@@ -34,5 +34,20 @@ namespace RESTLaag.Mappers
                 throw new MapNaarDomeinException("MapNaarLandDomein - error", ex);
             }
         }
+
+        public static Stad MapNaarStadDomein(StadRESTinputDTO dto, ContinentService continentService, LandService landService)
+        {
+            try
+            {
+                Continent continent = continentService.ContinentWeergeven(dto.ContinentId);
+                Land land = landService.LandWeergeven(dto.LandId);
+                Stad stad = new(dto.Naam, dto.Bevolkingsaantal, dto.IsHoofdStad, land);
+                return stad;
+            }
+            catch (Exception ex)
+            {
+                throw new MapNaarDomeinException("MapNaarStadDomein - error", ex);
+            }
+        }
     }
 }

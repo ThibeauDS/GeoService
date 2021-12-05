@@ -222,7 +222,7 @@ namespace DataLaag.ADO
 
         public bool BestaatLand(string naam, int id)
         {
-            string sql = "SELECT COUNT(*) FROM [dbo].[Land] WHERE Naam = @Naam = ContinentId = @ContinentId";
+            string sql = "SELECT COUNT(*) FROM [dbo].[Land] WHERE Naam = @Naam AND ContinentId = @ContinentId";
             SqlConnection connection = GetConnection();
             using SqlCommand command = new(sql, connection);
             try
