@@ -210,6 +210,89 @@ namespace DataLaag.ADO
                 connection.Close();
             }
         }
+
+        public Stad StadUpdaten(Stad stad)
+        {
+            string sql = "UPDATE [dbo].[Stad] SET Naam = @Naam, Bevolkingsaantal = @Bevolkingsaantal, IsHoofdStad = @IsHoofdStad, LandId = @LandId WHERE Idd = @Id";
+            SqlConnection connection = GetConnection();
+            using SqlCommand command = new(sql, connection);
+            connection.Open();
+            SqlTransaction transaction = connection.BeginTransaction();
+            try
+            {
+                command.Transaction = transaction;
+                command.Parameters.AddWithValue("@Id", stad.Id);
+                command.Parameters.AddWithValue("@Naam", stad.Naam);
+                command.Parameters.AddWithValue("@Bevolkingsaantal", stad.Bevolkingsaantal);
+                command.Parameters.AddWithValue("@IsHoofdStad", stad.IsHoofdstad);
+                command.Parameters.AddWithValue("@LandId", stad.Land.Id);
+                command.ExecuteNonQuery();
+                transaction.Commit();
+                return stad;
+            }
+            catch (Exception ex)
+            {
+                transaction.Rollback();
+                throw new StadRepositoryADOException("StadUpdatenADO - error", ex);
+            }
+            finally
+            {
+                connection.Close();
+            }
+        }
+
+        public bool ControleerBevolkingsaantal(int landId, int bevolkingsaantal)
+        {
+            string sql = "SELECT c.Id AS ContinentId, c.Naam AS ContinentNaam, c.Bevolkingsaantal AS ContinentBevolkingsaantal, l.Id AS LandId, l.Naam AS LandNaam, l.Bevolkingsaantal AS LandBevolkingsaantal, l.Oppervlakte, l.ContinentId, s.* FROM [dbo].[Stad] s " +
+                "INNER JOIN [dbo].[Land] l ON s.LandId = l.Id " +
+                "INNER JOIN [dbo].[Continent] c ON l.ContinentId = c.Id WHERE l.Id = @Id;";
+            SqlConnection connection = GetConnection();
+            using SqlCommand command = new(sql, connection);
+            List<Stad> steden = new();
+            Continent continent = null;
+            Land land = null;
+            int totaalBevolking = 0;
+            try
+            {
+                connection.Open();
+                command.Parameters.AddWithValue("@Id", landId);
+                IDataReader reader = command.ExecuteReader();
+                while (reader.Read())
+                {
+                    if (continent == null)
+                    {
+                        continent = new((int)reader["ContinentId"], (string)reader["ContinentNaam"], (int)reader["Bevolkingsaantal"]);
+                    }
+                    if (land == null)
+                    {
+                        land = new((int)reader["LandId"], (string)reader["LandNaam"], (int)reader["LandBevolkingsaantal"], (decimal)reader["Oppervlakte"], continent);
+                    }
+                    Stad stad = new((int)reader["Id"], (string)reader["Naam"], (int)reader["Bevolkingsaantal"], (bool)reader["IsHoofdstad"], land);
+                    steden.Add(stad);
+                }
+                reader.Close();
+                if (steden.Count > 0)
+                {
+                    foreach (Stad stad in steden)
+                    {
+                        totaalBevolking += stad.Bevolkingsaantal;
+                    }
+                    if ((totaalBevolking + bevolkingsaantal) > land.Bevolkingsaantal)
+                    {
+                        return false;
+                    }
+                }
+                return true;
+            }
+            catch (Exception ex)
+            {
+                throw new StadRepositoryADOException("ControleerBevolkingsaantalADO - error", ex);
+            }
+            finally
+            {
+                connection.Close();
+            }
+        }
         #endregion
     }
 }

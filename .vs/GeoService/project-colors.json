@@ -25,7 +25,12 @@
       "ProjectGuid": "fff068af-7fee-408a-992b-eb2af6225ae9",
       "DisplayName": "DomeinLaagTests",
       "ColorIndex": 3
+    },
+    "08b0b11d-f036-46fc-907b-d1f52041cd76": {
+      "ProjectGuid": "08b0b11d-f036-46fc-907b-d1f52041cd76",
+      "DisplayName": "RESTLaagTests",
+      "ColorIndex": 4
     }
   },
-  "NextColorIndex": 4
+  "NextColorIndex": 5
 }

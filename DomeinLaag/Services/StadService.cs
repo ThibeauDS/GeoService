@@ -53,7 +53,7 @@ namespace DomeinLaag.Services
             {
                 if (_repository.BestaatStad(stad.Id))
                 {
-                    throw new StadServiceException("Land bestaat al.");
+                    throw new StadServiceException("Stad bestaat al.");
                 }
                 return _repository.StadToevoegen(stad);
             }
@@ -69,7 +69,7 @@ namespace DomeinLaag.Services
             {
                 if (!_repository.BestaatStad(stadId))
                 {
-                    throw new StadServiceException("Land bestaat niet.");
+                    throw new StadServiceException("Stad bestaat niet.");
                 }
                 return _repository.StadWeergeven(stadId);
             }
@@ -97,13 +97,41 @@ namespace DomeinLaag.Services
             {
                 if (!_repository.BestaatStad(stadId))
                 {
-                    throw new StadServiceException("Land bestaat niet.");
+                    throw new StadServiceException("Stad bestaat niet.");
                 }
                 _repository.StadVerwijderen(stadId);
             }
             catch (Exception ex)
             {
-                throw new StadServiceException("StadWeergeven - error", ex);
+                throw new StadServiceException("StadVerwijderen - error", ex);
+            }
+        }
+
+        public Stad StadUpdaten(Stad stad)
+        {
+            try
+            {
+                if (!_repository.BestaatStad(stad.Id))
+                {
+                    throw new StadServiceException("Stad bestaat niet.");
+                }
+                return _repository.StadUpdaten(stad);
+            }
+            catch (Exception ex)
+            {
+                throw new StadServiceException("StadUpdaten - error", ex);
+            }
+        }
+
+        public bool ControleerBevolkingsaantal(int landId, int bevolkingsaantal)
+        {
+            try
+            {
+                return _repository.ControleerBevolkingsaantal(landId, bevolkingsaantal);
+            }
+            catch (Exception ex)
+            {
+                throw new StadServiceException("ControleerBevolkingsaantal - error", ex);
             }
         }
         #endregion

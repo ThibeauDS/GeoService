@@ -21,7 +21,7 @@ namespace RESTLaag.Mappers
                 {
                     bevolkingsaantal += land.Bevolkingsaantal;
                 }
-                List<string> landen = landService.GeefLandenContinent(continent.Id).Select(x => continentURL + $"/Land/{x.Id}").ToList();
+                List<string> landen = landenLijst.Select(x => continentURL + $"/Land/{x.Id}").ToList();
                 ContinentRESToutputDTO dto = new(continentURL, continent.Naam, bevolkingsaantal, landen.Count, landen);
                 return dto;
             }
