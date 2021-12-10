@@ -20,10 +20,6 @@ namespace DomeinLaag.Services
         {
             _repository = repository;
         }
-
-        public LandService()
-        {
-        }
         #endregion
 
         #region Methods

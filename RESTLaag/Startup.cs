@@ -20,7 +20,7 @@ namespace RESTLaag
     {
         #region Properties
         private readonly string _connectionString;
-        internal static string url;
+        public static string url;
         #endregion
 
         public Startup(IConfiguration configuration)

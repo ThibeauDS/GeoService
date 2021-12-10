@@ -29,21 +29,12 @@ namespace RESTLaag.Controllers
         #endregion
 
         #region Constructors
-        //Constructor voor API
-        //public GeoServiceController(ContinentService continentService, LandService landService, StadService stadService, ILogger<GeoServiceController> logger)
-        //{
-        //    _continentService = continentService;
-        //    _landService = landService;
-        //    _stadService = stadService;
-        //    _logger = logger;
-        //}
-
-        //Constructor voor Unit Testing
-        public GeoServiceController(ContinentService continentService, LandService landService, StadService stadService)
+        public GeoServiceController(ContinentService continentService, LandService landService, StadService stadService, ILogger<GeoServiceController> logger)
         {
             _continentService = continentService;
             _landService = landService;
             _stadService = stadService;
+            _logger = logger;
         }
         #endregion
 
