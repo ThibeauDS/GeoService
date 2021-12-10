@@ -26,9 +26,6 @@ namespace RESTLaag.Controllers
         private readonly LandService _landService;
         private readonly StadService _stadService;
         private readonly ILogger _logger;
-        private readonly IContinentRepository _continentRepository;
-        private readonly ILandRepository _landRepository;
-        private readonly IStadRepository _stadRepository;
         #endregion
 
         #region Constructors
@@ -42,11 +39,11 @@ namespace RESTLaag.Controllers
         //}
 
         //Constructor voor Unit Testing
-        public GeoServiceController(IContinentRepository continentRepository, ILandRepository landRepository, IStadRepository stadRepository)
+        public GeoServiceController(ContinentService continentService, LandService landService, StadService stadService)
         {
-            _continentRepository = continentRepository;
-            _landRepository = landRepository;
-            _stadRepository = stadRepository;
+            _continentService = continentService;
+            _landService = landService;
+            _stadService = stadService;
         }
         #endregion
 

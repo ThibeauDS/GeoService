@@ -20,6 +20,10 @@ namespace DomeinLaag.Services
         {
             _repository = repository;
         }
+
+        public StadService()
+        {
+        }
         #endregion
 
         #region Methods
