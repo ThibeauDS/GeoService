@@ -17,5 +17,6 @@ namespace DomeinLaag.Interfaces
         void StadVerwijderen(int stadId);
         Stad StadUpdaten(Stad stad);
         bool ControleerBevolkingsaantal(int landId, int bevolkingsaantal);
+        bool ZitStadInLandInContinent(int continentId, int landId, int stadId);
     }
 }

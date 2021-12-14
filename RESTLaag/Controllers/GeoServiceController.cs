@@ -128,6 +128,11 @@ namespace RESTLaag.Controllers
                     _logger.LogError($"{DateTime.Now} - Het continent bestaat niet.");
                     return BadRequest($"Het continent bestaat niet.");
                 }
+                if (!_landService.ZitLandInContinent(continentId, landId))
+                {
+                    _logger.LogError($"{DateTime.Now} - Combinatie van ContinentId en LandId komen niet overeen.");
+                    return BadRequest($"Combinatie van ContinentId en LandId komen niet overeen.");
+                }
                 Land land = _landService.LandWeergeven(landId);
                 _logger.LogInformation($"{DateTime.Now} - GetLand methode werdt succesvol opgeroepen.");
                 return Ok(MapVanDomein.MapVanLandDomein(_url, land, _stadService));
@@ -182,6 +187,11 @@ namespace RESTLaag.Controllers
                     _logger.LogError($"{DateTime.Now} - Het opgegeven land kan niet worden verwijderd wegens bevat steden.");
                     return BadRequest($"Het opgegeven land kan niet worden verwijderd wegens bevat steden.");
                 }
+                if (!_landService.ZitLandInContinent(continentId, landId))
+                {
+                    _logger.LogError($"{DateTime.Now} - Combinatie van ContinentId en LandId komen niet overeen.");
+                    return BadRequest($"Combinatie van ContinentId en LandId komen niet overeen.");
+                }
                 _landService.LandVerwijderen(landId);
                 return NoContent();
             }
@@ -202,6 +212,11 @@ namespace RESTLaag.Controllers
                 {
                     _logger.LogError($"{DateTime.Now} - Het continent/land bestaat al of ingevulde informatie is leeg/null.");
                     return BadRequest($"Het continent/land bestaat al of ingevulde informatie is leeg/null.");
+                }
+                if (!_landService.ZitLandInContinent(continentId, landId))
+                {
+                    _logger.LogError($"{DateTime.Now} - Combinatie van ContinentId en LandId komen niet overeen.");
+                    return BadRequest($"Combinatie van ContinentId en LandId komen niet overeen.");
                 }
                 Land land = MapNaarDomein.MapNaarLandDomein(dto, _continentService);
                 land.ZetId(landId);
@@ -233,6 +248,11 @@ namespace RESTLaag.Controllers
                 {
                     _logger.LogError($"{DateTime.Now} - Het land bestaat niet.");
                     return BadRequest($"Het land bestaat niet.");
+                }
+                if (!_stadService.ZitStadInLandInContinent(continentId, landId, stadId))
+                {
+                    _logger.LogError($"{DateTime.Now} - Combinatie van ContinentId en LandId en StadId komen niet overeen.");
+                    return BadRequest($"Combinatie van ContinentId en LandId en StadId komen niet overeen.");
                 }
                 Stad stad = _stadService.StadWeergeven(stadId);
                 _logger.LogInformation($"{DateTime.Now} - GetStad methode werdt succesvol opgeroepen.");
@@ -298,6 +318,11 @@ namespace RESTLaag.Controllers
                     _logger.LogError($"{DateTime.Now} - Stad bestaat niet.");
                     return BadRequest();
                 }
+                if (!_stadService.ZitStadInLandInContinent(continentId, landId, stadId))
+                {
+                    _logger.LogError($"{DateTime.Now} - Combinatie van ContinentId en LandId en StadId komen niet overeen.");
+                    return BadRequest($"Combinatie van ContinentId en LandId en StadId komen niet overeen.");
+                }
                 _stadService.StadVerwijderen(stadId);
                 _logger.LogInformation($"{DateTime.Now} - DeleteStad methode werdt succesvol opgeroepen.");
                 return NoContent();
@@ -329,6 +354,11 @@ namespace RESTLaag.Controllers
                 {
                     _logger.LogError($"{DateTime.Now} - Het ingevulde Land Id komt niet overeen met het Land Id van in de body.");
                     return BadRequest("LandId klopt niet.");
+                }
+                if (!_stadService.ZitStadInLandInContinent(continentId, landId, stadId))
+                {
+                    _logger.LogError($"{DateTime.Now} - Combinatie van ContinentId en LandId en StadId komen niet overeen.");
+                    return BadRequest($"Combinatie van ContinentId en LandId en StadId komen niet overeen.");
                 }
                 Stad stad = MapNaarDomein.MapNaarStadDomein(dto, _continentService, _landService);
                 stad.ZetId(stadId);

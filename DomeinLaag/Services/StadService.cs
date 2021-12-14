@@ -134,6 +134,18 @@ namespace DomeinLaag.Services
                 throw new StadServiceException("ControleerBevolkingsaantal - error", ex);
             }
         }
+
+        public bool ZitStadInLandInContinent(int continentId, int landId, int stadId)
+        {
+            try
+            {
+                return _repository.ZitStadInLandInContinent(continentId, landId, stadId);
+            }
+            catch (Exception ex)
+            {
+                throw new StadServiceException("ZitStadInLandInContinent - error", ex);
+            }
+        }
         #endregion
     }
 }

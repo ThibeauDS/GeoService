@@ -293,6 +293,34 @@ namespace DataLaag.ADO
                 connection.Close();
             }
         }
+
+        public bool ZitStadInLandInContinent(int continentId, int landId, int stadId)
+        {
+            string sql = "SELECT COUNT(*) FROM [dbo].[Stad] s INNER JOIN [dbo].[Land] l ON s.LandId = l.Id INNER JOIN [dbo].[Continent] c ON l.ContinentId = c.Id WHERE c.Id = @ContinentId AND l.Id = @landId AND s.Id = @stadId";
+            SqlConnection connection = GetConnection();
+            using SqlCommand command = new(sql, connection);
+            try
+            {
+                connection.Open();
+                command.Parameters.AddWithValue("@ContinentId", continentId);
+                command.Parameters.AddWithValue("@stadId", stadId);
+                command.Parameters.AddWithValue("@landId", landId);
+                int n = (int)command.ExecuteScalar();
+                if (n > 0)
+                {
+                    return true;
+                }
+                return false;
+            }
+            catch (Exception ex)
+            {
+                throw new StadRepositoryADOException("ZitStadInLandInContinentADO - error", ex);
+            }
+            finally
+            {
+                connection.Close();
+            }
+        }
         #endregion
     }
 }

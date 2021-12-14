@@ -126,6 +126,18 @@ namespace DomeinLaag.Services
                 throw new LandServiceException("BestaatLand - error", ex);
             }
         }
+
+        public bool ZitLandInContinent(int continentId, int landId)
+        {
+            try
+            {
+                return _repository.ZitLandInContinent(continentId, landId);
+            }
+            catch (Exception ex)
+            {
+                throw new LandServiceException("ZitLandInContinent - error", ex);
+            }
+        }
         #endregion
     }
 }

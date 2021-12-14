@@ -246,6 +246,33 @@ namespace DataLaag.ADO
                 connection.Close();
             }
         }
+
+        public bool ZitLandInContinent(int continentId, int landId)
+        {
+            string sql = "SELECT COUNT(*) FROM [dbo].[Land] WHERE Id = @Id AND ContinentId = @ContinentId";
+            SqlConnection connection = GetConnection();
+            using SqlCommand command = new(sql, connection);
+            try
+            {
+                connection.Open();
+                command.Parameters.AddWithValue("@Naam", landId);
+                command.Parameters.AddWithValue("@ContinentId", continentId);
+                int n = (int)command.ExecuteScalar();
+                if (n > 0)
+                {
+                    return true;
+                }
+                return false;
+            }
+            catch (Exception ex)
+            {
+                throw new LandRepositoryADOException("ZitLandInContinentADO - error", ex);
+            }
+            finally
+            {
+                connection.Close();
+            }
+        }
         #endregion
     }
 }
