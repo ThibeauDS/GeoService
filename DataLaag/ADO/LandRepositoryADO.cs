@@ -96,19 +96,23 @@ namespace DataLaag.ADO
             string sql = "INSERT INTO [dbo].[Land] (Naam, Bevolkingsaantal, Oppervlakte, ContinentId) VALUES (@Naam, @Bevolkingsaantal, @Oppervlakte, @ContinentId) SELECT SCOPE_IDENTITY()";
             SqlConnection connection = GetConnection();
             using SqlCommand command = new(sql, connection);
+            connection.Open();
+            SqlTransaction sqlTransaction = connection.BeginTransaction();
             try
             {
-                connection.Open();
+                command.Transaction = sqlTransaction;
                 command.Parameters.AddWithValue("@Naam", land.Naam);
                 command.Parameters.AddWithValue("@Bevolkingsaantal", land.Bevolkingsaantal);
                 command.Parameters.AddWithValue("@Oppervlakte", land.Oppervlakte);
                 command.Parameters.AddWithValue("@ContinentId", land.Continent.Id);
                 int id = Decimal.ToInt32((decimal)command.ExecuteScalar());
                 land.ZetId(id);
+                sqlTransaction.Commit();
                 return land;
             }
             catch (Exception ex)
             {
+                sqlTransaction.Rollback();
                 throw new LandRepositoryADOException("LandToevoegenADO - error", ex);
             }
             finally
@@ -199,19 +203,23 @@ namespace DataLaag.ADO
             string sql = "UPDATE [dbo].[Land] SET Naam = @Naam, Oppervlakte = @Oppervlakte, ContinentId = @ContinentId, Bevolkingsaantal = @Bevolkingsaantal WHERE Id = @Id";
             SqlConnection connection = GetConnection();
             using SqlCommand command = new(sql, connection);
+            connection.Open();
+            SqlTransaction sqlTransaction = connection.BeginTransaction();
             try
             {
-                connection.Open();
+                command.Transaction = sqlTransaction;
                 command.Parameters.AddWithValue("@Id", land.Id);
                 command.Parameters.AddWithValue("@Naam", land.Naam);
                 command.Parameters.AddWithValue("@Oppervlakte", land.Oppervlakte);
                 command.Parameters.AddWithValue("@ContinentId", land.Continent.Id);
                 command.Parameters.AddWithValue("@Bevolkingsaantal", land.Bevolkingsaantal);
                 command.ExecuteNonQuery();
+                sqlTransaction.Commit();
                 return land;
             }
             catch (Exception ex)
             {
+                sqlTransaction.Rollback();
                 throw new LandRepositoryADOException("LandUpdatenADO - error", ex);
             }
             finally

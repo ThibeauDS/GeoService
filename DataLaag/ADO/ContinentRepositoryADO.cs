@@ -36,17 +36,21 @@ namespace DataLaag.ADO
             string sql = "INSERT INTO [dbo].[Continent] (Naam, Bevolkingsaantal) VALUES (@Naam, @Bevolkingsaantal) SELECT SCOPE_IDENTITY()";
             SqlConnection connection = GetConnection();
             using SqlCommand command = new(sql, connection);
+            connection.Open();
+            SqlTransaction sqlTransaction = connection.BeginTransaction();
             try
             {
-                connection.Open();
+                command.Transaction = sqlTransaction;
                 command.Parameters.AddWithValue("@Naam", continent.Naam);
                 command.Parameters.AddWithValue("@Bevolkingsaantal", continent.Bevolkingsaantal);
                 int id = Decimal.ToInt32((decimal)command.ExecuteScalar());
                 continent.ZetId(id);
+                sqlTransaction.Commit();
                 return continent;
             }
             catch (Exception ex)
             {
+                sqlTransaction.Rollback();
                 throw new ContinentRepositoryADOException("ContinentToevoegenADO - error", ex);
             }
             finally
@@ -161,15 +165,19 @@ namespace DataLaag.ADO
             string sql = "UPDATE [dbo].[Continent] SET Naam = @Naam WHERE Id = @Id";
             SqlConnection connection = GetConnection();
             using SqlCommand command = new(sql, connection);
+            connection.Open();
+            SqlTransaction sqlTransaction = connection.BeginTransaction();
             try
             {
-                connection.Open();
+                command.Transaction = sqlTransaction;
                 command.Parameters.AddWithValue("@Id", continent.Id);
                 command.Parameters.AddWithValue("@Naam", continent.Naam);
                 command.ExecuteNonQuery();
+                sqlTransaction.Commit();
             }
             catch (Exception ex)
             {
+                sqlTransaction.Rollback();
                 throw new ContinentRepositoryADOException("ContinentUpdatenADO - error", ex);
             }
             finally
