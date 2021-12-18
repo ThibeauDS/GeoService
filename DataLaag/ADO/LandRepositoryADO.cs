@@ -263,7 +263,7 @@ namespace DataLaag.ADO
             try
             {
                 connection.Open();
-                command.Parameters.AddWithValue("@Naam", landId);
+                command.Parameters.AddWithValue("@Id", landId);
                 command.Parameters.AddWithValue("@ContinentId", continentId);
                 int n = (int)command.ExecuteScalar();
                 if (n > 0)
